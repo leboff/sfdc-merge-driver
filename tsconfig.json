@@ -4,9 +4,6 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
-    "lib": [
-      "es2015.promise"
-    ],
     "module": "commonjs",
     "outDir": "./lib",
     "resolveJsonModule": true,
@@ -17,10 +14,6 @@
     "target": "es2017",
     "typeRoots": [
       "./node_modules/@types"
-    ],
-    "baseUrl": "./",
-    "types": [
-      "node"
     ]
   },
   "include": [
