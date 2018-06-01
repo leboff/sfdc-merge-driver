@@ -11,7 +11,13 @@
     "@oclif/command": "^1",
     "@oclif/config": "^1",
     "@oclif/plugin-help": "^2",
-    "tslib": "^1"
+    "@types/fs-extra": "^5.0.2",
+    "@types/inquirer": "0.0.41",
+    "@types/xml2js": "^0.4.2",
+    "fs-extra": "^6.0.1",
+    "inquirer": "^5.2.0",
+    "tslib": "^1",
+    "xml2js": "^0.4.19"
   },
   "devDependencies": {
     "@oclif/test": "^1",
