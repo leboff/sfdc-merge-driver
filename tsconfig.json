@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "declaration": true,
+    "experimentalDecorators": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
@@ -10,7 +11,8 @@
     "rootDirs": [
       "./src"
     ],
-    "strict": true,
+    "strict": false,
+    "strictFunctionTypes": false,
     "target": "es2017",
     "typeRoots": [
       "./node_modules/@types"
