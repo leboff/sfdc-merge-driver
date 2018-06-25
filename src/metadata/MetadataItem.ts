@@ -12,6 +12,8 @@ import { SharingRules } from './SharingRule';
 import { AssignmentRules } from './AssignmentRule';
 import {  Merge } from '../merger';
 import * as _ from 'lodash'
+import {CLIError} from '@oclif/errors'
+
 const xmlParser = <(xml: convertableToString, options?: any) => Promise<any>>promisify(parseString)
 
 class meta {
@@ -19,14 +21,10 @@ class meta {
   type?: string
 }
 
-class UnsupportedMetadataException {
-  type?: string;
-  constructor(type?: string) {
-    this.type = type;
-  }
-
-  toString() {
-    console.log(`Metadata of ${this.type} is unsupported`);
+class UnsupportedMetadataError extends Error {
+  constructor(...args) {
+      super(`Metadata of type ${args[0]} is unsupported. Using git merge`)
+      Error.captureStackTrace(this, UnsupportedMetadataError)
   }
 }
 
@@ -55,13 +53,13 @@ export class MetadataItem extends Metadata {
 
   async parse() {
     if (!this.meta.type) {
-
       let file: any = await readFile(this.meta.fileName)
       let parsed = await xmlParser(file, { explicitArray: true })
       const type = Object.keys(parsed)[0]
 
       this.meta.type = type;
       Object.assign(this, this.decereal(parsed[type]))
+
     }
 
     return this
@@ -69,7 +67,7 @@ export class MetadataItem extends Metadata {
 
   private decereal(data: object) {
     let type = this.meta.type;
-    if (!type) throw new UnsupportedMetadataException('undefined');
+    if (!type) throw new UnsupportedMetadataError(this.meta.type);
 
     if (type === 'CustomObject') return deserialize<Metadata>(CustomObject, data)
     if (type === 'Workflow') return deserialize<Metadata>(Workflow, data)
@@ -80,7 +78,7 @@ export class MetadataItem extends Metadata {
 
 
     else {
-      throw new UnsupportedMetadataException(this.meta.type)
+      throw new UnsupportedMetadataError(this.meta.type)
     }
   }
 
@@ -135,6 +133,7 @@ export class MetadataItem extends Metadata {
 
 
 export async function MetadataMerge(base: MetadataItem, current: MetadataItem, other: MetadataItem) {
+
   await current.parse()
   await other.parse()
   await base.parse()
