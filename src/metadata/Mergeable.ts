@@ -13,6 +13,5 @@ export class KeyedMergeable {
 
 }
 export function isMergeable(val: Mergeable): val is Mergeable {
-  return val && (<Mergeable>val).key !== undefined;
+  return val && ( < Mergeable > val).key !== undefined;
 }
-

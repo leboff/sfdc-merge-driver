@@ -63,27 +63,27 @@ class SfdcMergetool extends Command {
 
 
     return new Promise((resolve, reject) => {
-      let mergeResult = ChildProcess.spawn('git', ['merge-file', args.current, args.base, args.other], {
-        cwd: process.cwd()
-      })
-      mergeResult.on('exit', (exitCode: number, status: string) => {
-        if (exitCode) {
-          return reject(exitCode);
-        }
+        let mergeResult = ChildProcess.spawn('git', ['merge-file', args.current, args.base, args.other], {
+          cwd: process.cwd()
+        })
+        mergeResult.on('exit', (exitCode: number, status: string) => {
+          if (exitCode) {
+            return reject(exitCode);
+          }
 
-        this.log(`Merged automatically.`)
-        resolve();
+          this.log(`Merged automatically.`)
+          resolve();
+        })
+        mergeResult.on('error', (error: any) => {
+          this.log(error);
+        })
       })
-      mergeResult.on('error', (error: any) => {
-        this.log(error);
+      .catch((exitCode: number) => {
+        this.exit(exitCode);
       })
-    })
-    .catch((exitCode: number) => {
-      this.exit(exitCode);
-    })
-    .then(() => {
-      this.exit();
-    })
+      .then(() => {
+        this.exit();
+      })
 
 
   }

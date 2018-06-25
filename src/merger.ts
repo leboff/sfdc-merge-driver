@@ -1,13 +1,19 @@
-import { Mergeable, KeyedMergeable, isMergeable } from "./metadata/Mergeable";
+import {
+  Mergeable,
+  KeyedMergeable,
+  isMergeable
+} from "./metadata/Mergeable";
 import * as _ from 'lodash'
-const getValues = function (km: KeyedMergeable, sort: boolean = true): Mergeable[] { return sort ? _.sortBy(_.values(km), (val) => val.isSorted() && val.key()) : _.values(km) }
+const getValues = function (km: KeyedMergeable, sort: boolean = true): Mergeable[] {
+  return sort ? _.sortBy(_.values(km), (val) => val.isSorted() && val.key()) : _.values(km)
+}
 
 export class Merge {
   conflictCount: number = 0;
   base: Mergeable;
   current: Mergeable;
   other: Mergeable;
-  constructor(base: Mergeable, current: Mergeable, other: Mergeable){
+  constructor(base: Mergeable, current: Mergeable, other: Mergeable) {
     this.base = base;
     this.current = current;
     this.other = other;
@@ -32,13 +38,13 @@ export class Merge {
     });
     return this.current;
   }
-  _merge(base: any, current: any, other: any){
+  _merge(base: any, current: any, other: any) {
     let currentResult: any = _.clone(other);
 
     _.forEach(other, (otherVal, key: any) => {
-      if(!_.has(current, key)){
+      if (!_.has(current, key)) {
         //current doesn't have this value
-        if(_.isEqual(base[key], otherVal)){
+        if (_.isEqual(base[key], otherVal)) {
           //removed in current remove unmodified in other
           //from current result and base result
           delete currentResult[key]
@@ -47,20 +53,19 @@ export class Merge {
       }
     })
 
-    _.forEach(current, (currentVal, key:any) => {
+    _.forEach(current, (currentVal, key: any) => {
 
       const baseVal = base[key]
       const otherVal = other[key]
 
-      if(!_.has(other, key)){
+      if (!_.has(other, key)) {
         //if other does not have this key
-        if(!_.has(base, key)){
+        if (!_.has(base, key)) {
           //and base does not have this key
           //then this was an addition, resolve
           other[key] = currentVal
           currentResult[key] = currentVal
-        }
-        else{
+        } else {
           //removed in other
           // if(!_.isEqual(currentVal, baseVal)){
           //   console.log('removed in other modified in current');
@@ -70,21 +75,18 @@ export class Merge {
           //   currentResult[key] = currentVal
           // }
         }
-      }
-      else if(!_.isEqual(otherVal, currentVal) ){
-        if(isMergeable(currentVal)){
+      } else if (!_.isEqual(otherVal, currentVal)) {
+        if (isMergeable(currentVal)) {
           currentResult[key] = new Merge(baseVal || {}, currentVal, otherVal || {}).merge();
         }
-        if(typeof currentVal === 'object' && typeof otherVal === 'object' ){
+        if (typeof currentVal === 'object' && typeof otherVal === 'object') {
           currentResult[key] = this._merge(_.has(base, key) && typeof baseVal === 'object' ? baseVal : {}, currentVal, otherVal)
-        }
-        else{
-          if(_.isEqual(otherVal, baseVal)){
+        } else {
+          if (_.isEqual(otherVal, baseVal)) {
             //only current val changed, take it
             other[key] = currentVal
             currentResult[key] = currentVal
-          }
-          else if (!_.isEqual(currentVal, baseVal)){
+          } else if (!_.isEqual(currentVal, baseVal)) {
             this.conflictCount++;
             //we have a conflict, keep original val
             currentResult[key] = currentVal
@@ -96,4 +98,3 @@ export class Merge {
   }
 
 }
-

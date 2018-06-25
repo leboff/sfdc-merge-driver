@@ -1,6 +1,7 @@
-
-import { Mergeable } from './Mergeable'
-export class Metadata implements Mergeable{
+import {
+  Mergeable
+} from './Mergeable'
+export class Metadata implements Mergeable {
   fullName: string = ''
 
   constructor(name: string) {

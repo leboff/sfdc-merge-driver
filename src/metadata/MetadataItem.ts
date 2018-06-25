@@ -1,30 +1,58 @@
-
-import { readFile, writeFile } from 'fs-extra'
-import { parseString, convertableToString, Builder } from 'xml2js'
-import { promisify } from 'util'
-import { deserialize } from "serializer.ts/Serializer"
-import { CustomObject } from './CustomObject'
-import { PermissionSet } from './PermissionSet'
-import { Metadata } from './Metadata'
-import { Workflow } from './Workflow';
-import { Profile } from './Profile';
-import { SharingRules } from './SharingRule';
-import { AssignmentRules } from './AssignmentRule';
-import {  Merge } from '../merger';
+import {
+  readFile,
+  writeFile
+} from 'fs-extra'
+import {
+  parseString,
+  convertableToString,
+  Builder
+} from 'xml2js'
+import {
+  promisify
+} from 'util'
+import {
+  deserialize
+} from "serializer.ts/Serializer"
+import {
+  CustomObject
+} from './CustomObject'
+import {
+  PermissionSet
+} from './PermissionSet'
+import {
+  Metadata
+} from './Metadata'
+import {
+  Workflow
+} from './Workflow';
+import {
+  Profile
+} from './Profile';
+import {
+  SharingRules
+} from './SharingRule';
+import {
+  AssignmentRules
+} from './AssignmentRule';
+import {
+  Merge
+} from '../merger';
 import * as _ from 'lodash'
-import {CLIError} from '@oclif/errors'
+import {
+  CLIError
+} from '@oclif/errors'
 
-const xmlParser = <(xml: convertableToString, options?: any) => Promise<any>>promisify(parseString)
+const xmlParser = < (xml: convertableToString, options ? : any) => Promise < any >> promisify(parseString)
 
 class meta {
   fileName: string = ''
-  type?: string
+  type ? : string
 }
 
 class UnsupportedMetadataError extends Error {
   constructor(...args) {
-      super(`Metadata of type ${args[0]} is unsupported. Using git merge`)
-      Error.captureStackTrace(this, UnsupportedMetadataError)
+    super(`Metadata of type ${args[0]} is unsupported. Using git merge`)
+    Error.captureStackTrace(this, UnsupportedMetadataError)
   }
 }
 
@@ -54,7 +82,9 @@ export class MetadataItem extends Metadata {
   async parse() {
     if (!this.meta.type) {
       let file: any = await readFile(this.meta.fileName)
-      let parsed = await xmlParser(file, { explicitArray: true })
+      let parsed = await xmlParser(file, {
+        explicitArray: true
+      })
       const type = Object.keys(parsed)[0]
 
       this.meta.type = type;
@@ -69,12 +99,12 @@ export class MetadataItem extends Metadata {
     let type = this.meta.type;
     if (!type) throw new UnsupportedMetadataError(this.meta.type);
 
-    if (type === 'CustomObject') return deserialize<Metadata>(CustomObject, data)
-    if (type === 'Workflow') return deserialize<Metadata>(Workflow, data)
-    if (type === 'Profile') return deserialize<Metadata>(Profile, data)
-    if (type === 'AssignmentRules') return deserialize<Metadata>(AssignmentRules, data)
-    if (type === 'SharingRules') return deserialize<Metadata>(SharingRules, data)
-    if (type === 'PermissionSet') return deserialize<Metadata>(PermissionSet, data)
+    if (type === 'CustomObject') return deserialize < Metadata > (CustomObject, data)
+    if (type === 'Workflow') return deserialize < Metadata > (Workflow, data)
+    if (type === 'Profile') return deserialize < Metadata > (Profile, data)
+    if (type === 'AssignmentRules') return deserialize < Metadata > (AssignmentRules, data)
+    if (type === 'SharingRules') return deserialize < Metadata > (SharingRules, data)
+    if (type === 'PermissionSet') return deserialize < Metadata > (PermissionSet, data)
 
 
     else {
@@ -105,7 +135,7 @@ export class MetadataItem extends Metadata {
       },
     });
 
-    let buildable:any = _.toPairs(_.omit(this, ['meta', 'fullName']));
+    let buildable: any = _.toPairs(_.omit(this, ['meta', 'fullName']));
     buildable = _.sortBy(buildable, 0)
     buildable = _.fromPairs(buildable);
 
@@ -118,8 +148,7 @@ export class MetadataItem extends Metadata {
     try {
       let built = this.build()
       return writeFile(fileName, built)
-    }
-    catch (e) {
+    } catch (e) {
       console.log(e);
     }
   }
