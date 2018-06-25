@@ -1,4 +1,10 @@
 import {
+  Translations
+} from './Translations'
+import {
+  CustomObjectTranslation
+} from './CustomObjectTranslation';
+import {
   readFile,
   writeFile
 } from 'fs-extra'
@@ -105,6 +111,8 @@ export class MetadataItem extends Metadata {
     if (type === 'AssignmentRules') return deserialize < Metadata > (AssignmentRules, data)
     if (type === 'SharingRules') return deserialize < Metadata > (SharingRules, data)
     if (type === 'PermissionSet') return deserialize < Metadata > (PermissionSet, data)
+    if (type === 'CustomObjectTranslation') return deserialize < Metadata > (CustomObjectTranslation, data)
+    if (type === 'Translations') return deserialize < Metadata > (Translations, data)
 
 
     else {

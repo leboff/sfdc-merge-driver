@@ -55,6 +55,7 @@
   "repository": "leboff/sfdc-mergetool",
   "scripts": {
     "prepack": "rm -rf lib && tsc",
+    "generate-types": "node wsdl/generate.js",
     "test": "nyc mocha --forbid-only \"test/**/*.test.ts\""
   },
   "types": "lib/index.d.ts"
