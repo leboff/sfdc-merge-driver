@@ -1,6 +1,6 @@
 import {
   Mergeable
-} from './../../lib/metadata/Mergeable.d';
+} from './Mergeable';
 import {
   Metadata
 } from './Metadata'
