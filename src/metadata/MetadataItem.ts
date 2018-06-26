@@ -56,7 +56,7 @@ class meta {
 }
 
 class UnsupportedMetadataError extends Error {
-  constructor(...args) {
+  constructor(...args: any[]) {
     super(`Metadata of type ${args[0]} is unsupported. Using git merge`)
     Error.captureStackTrace(this, UnsupportedMetadataError)
   }

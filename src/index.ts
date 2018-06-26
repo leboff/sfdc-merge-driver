@@ -48,7 +48,7 @@ class SfdcMergetool extends Command {
       flags
     } = this.parse(SfdcMergetool)
 
-    this.log(`Merging: ${args.path}`)
+    this.log(`SFDCM: Auto-merging ${args.path}`)
     var base = new MetadataItem(args.base)
     var current = new MetadataItem(args.current)
     var other = new MetadataItem(args.other)
@@ -70,8 +70,6 @@ class SfdcMergetool extends Command {
           if (exitCode) {
             return reject(exitCode);
           }
-
-          this.log(`Merged automatically.`)
           resolve();
         })
         mergeResult.on('error', (error: any) => {
@@ -79,6 +77,7 @@ class SfdcMergetool extends Command {
         })
       })
       .catch((exitCode: number) => {
+        this.log(`SFDCM CONFLICT (content): Merge conflict in ${args.path}`)
         this.exit(exitCode);
       })
       .then(() => {
