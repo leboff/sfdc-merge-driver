@@ -8,6 +8,7 @@
     "module": "commonjs",
     "outDir": "./lib",
     "resolveJsonModule": true,
+    "rootDir": "./src",
     "rootDirs": [
       "./src"
     ],
@@ -19,7 +20,6 @@
     ]
   },
   "include": [
-    "./src/**/*",
-    "./wsdl/**/*"
+    "./src/**/*"
   ]
 }

@@ -1,7 +1,7 @@
 {
-  "name": "sfdc-mergetool",
+  "name": "sfdcm",
   "description": "Merge salesforce metadata with ease",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "author": "Bryan Leboff @leboff",
   "bin": {
     "sfdcm": "./bin/run"

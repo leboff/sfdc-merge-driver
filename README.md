@@ -13,5 +13,30 @@ Merge salesforce metadata with ease
 <!-- toc -->
 # Usage
 <!-- usage -->
+### Add Driver to .gitconfig
+Add the following lines to your ~/.gitconfig file
+
+```
+[merge "sfdcm"]
+	name = Merge Driver for Salesforce Metadata
+	driver = sfdcm %O %A %B %P
+```
+
+### Add merge driver for SFDC metadata types in git attributes
+Add the following to your gitattributes file. This can be your `<project-root>/.gitattributes` or `<project-root>/.git/info/attributes` files
+
+```
+*.object merge=sfdcm
+*.profile merge=sfdcm
+*.assignmentRules merge=sfdcm
+*.sharingRules merge=sfdcm
+*.permissionset merge=sfdcm
+*.workflow merge=sfdcm
+*.objectTranslations merge=sfdcm
+*.translations merge=sfdcm
+```
+
 # Commands
-<!-- commands -->
+
+Test your tool is installed
+`sfdcm --version`

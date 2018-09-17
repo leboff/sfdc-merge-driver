@@ -53,7 +53,7 @@ jobs:
 
 workflows:
   version: 2
-  "sfdc-mergetool":
+  "sfdcm":
     jobs:
       - node-latest
       - node-8
