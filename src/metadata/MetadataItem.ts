@@ -41,6 +41,9 @@ import {
   AssignmentRules
 } from './AssignmentRule';
 import {
+  StandardValueSet, GlobalValueSet
+} from './ValueSet';
+import {
   Merge
 } from '../merger';
 import * as _ from 'lodash'
@@ -112,6 +115,8 @@ export class MetadataItem extends Metadata {
     if (type === 'SharingRules') return deserialize < Metadata > (SharingRules, data)
     if (type === 'PermissionSet') return deserialize < Metadata > (PermissionSet, data)
     if (type === 'CustomObjectTranslation') return deserialize < Metadata > (CustomObjectTranslation, data)
+    if (type === 'StandardValueSet') return deserialize < Metadata > (StandardValueSet, data)
+    if (type === 'GlobalValueSet') return deserialize < Metadata > (GlobalValueSet, data)
     if (type === 'Translations') return deserialize < Metadata > (Translations, data)
 
 
