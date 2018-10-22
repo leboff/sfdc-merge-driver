@@ -1,7 +1,7 @@
 {
   "name": "sfdcm",
   "description": "Merge salesforce metadata with ease",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "author": "Bryan Leboff @leboff",
   "bin": {
     "sfdcm": "./bin/run"

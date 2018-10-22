@@ -44,6 +44,9 @@ import {
   StandardValueSet, GlobalValueSet
 } from './ValueSet';
 import {
+  CustomLabels
+} from './CustomLabels';
+import {
   Merge
 } from '../merger';
 import * as _ from 'lodash'
@@ -118,6 +121,7 @@ export class MetadataItem extends Metadata {
     if (type === 'StandardValueSet') return deserialize < Metadata > (StandardValueSet, data)
     if (type === 'GlobalValueSet') return deserialize < Metadata > (GlobalValueSet, data)
     if (type === 'Translations') return deserialize < Metadata > (Translations, data)
+    if (type === 'CustomLabels') return deserialize < Metadata > (CustomLabels, data)
 
 
     else {
