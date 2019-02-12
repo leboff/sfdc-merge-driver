@@ -34,6 +34,9 @@ Add the following to your gitattributes file. This can be your `<project-root>/.
 *.workflow merge=sfdcm
 *.objectTranslations merge=sfdcm
 *.translations merge=sfdcm
+*.labels merge=sfdcm
+*.standardValueSet merge=sfdcm
+*.globalValueSet merge=sfdcm
 ```
 
 # Commands
