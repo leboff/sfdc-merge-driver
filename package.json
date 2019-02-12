@@ -11,7 +11,7 @@
     "@oclif/command": "^1",
     "@oclif/config": "^1",
     "@oclif/plugin-help": "^2",
-    "@types/fs-extra": "^5.0.0",
+    "@types/fs-extra": "5.0.4",
     "@types/lodash": "^4.14.109",
     "@types/xml2js": "^0.4.2",
     "fs-extra": "^5.0.0",
