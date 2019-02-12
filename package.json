@@ -6,7 +6,7 @@
   "bin": {
     "sfdcm": "./bin/run"
   },
-  "bugs": "https://github.com/leboff/sfdc-mergetool/issues",
+  "bugs": "https://github.com/leboff/sfdc-merge-driver/issues",
   "dependencies": {
     "@oclif/command": "^1",
     "@oclif/config": "^1",
@@ -40,7 +40,7 @@
     "/bin",
     "/lib"
   ],
-  "homepage": "https://github.com/leboff/sfdc-mergetool",
+  "homepage": "https://github.com/leboff/sfdc-merge-driver",
   "keywords": [
     "oclif"
   ],
@@ -52,7 +52,7 @@
       "identifier": "com.leboff.sfdcm"
     }
   },
-  "repository": "leboff/sfdc-mergetool",
+  "repository": "leboff/sfdc-merge-driver",
   "scripts": {
     "prepack": "rm -rf lib && tsc",
     "generate-types": "node wsdl/generate.js",
